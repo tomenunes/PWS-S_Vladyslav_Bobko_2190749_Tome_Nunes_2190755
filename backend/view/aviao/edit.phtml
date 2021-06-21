@@ -1,0 +1,57 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+(new OverallHelper)->CallLayout(); ?>
+<?php $aviao = Data::get('aviao');  ?>
+
+    <!-- container -->
+
+
+                <div class="container-fluid">
+
+
+                    <h3 class="text-dark mb-4">Avião:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Editar Aviões</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                           <form method="post" action="<?=Url::toRoute('aviao/update', $aviao->id)?>">
+                               <div class="top-margin">
+                                   <label>referencia do Avião<span class="text-danger">*</span></label>
+                                   <input type="text" name="referencia" value="<?=$aviao->referencia?>" class="form-control">
+                               </div>
+                               <div class="top-margin">
+                                   <label>lotação do Avião<span class="text-danger">*</span></label>
+                                   <input type="text" name="lotacao" value="<?= $aviao->lotacao ?>" class="form-control">
+                               </div>
+                               <div class="top-margin">
+                                   <label>Tipo de Avião</label>
+                                   <input type="text" name="tipo_aviao" value="<?=$aviao->tipo_aviao?>" class="form-control">
+                               </div>
+                               <hr>
+                               <div class="row">
+
+                                   <div class="col-lg-4 text-left">
+                                       <button class="btn btn-info" type="submit">Editar Voo</button>
+                                   </div>
+                               </div>
+                           </form>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

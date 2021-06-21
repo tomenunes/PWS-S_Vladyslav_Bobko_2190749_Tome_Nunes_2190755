@@ -1,0 +1,95 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+$role = Session::get('role');
+(new OverallHelper)->CallLayout(); ?>
+<?php $escala = Data::get('escala') ?>
+<?php $aeroporto = Data::get('aeroporto') ?>
+<?php $voo = Data::get('voo') ?>
+
+    <!-- container -->
+        <?php foreach ($escala as $escalas){
+                $idvoo = $escalas->id_voos;
+
+}
+            ?>
+
+                <div class="container-fluid">
+
+                    <a href="<?=Url::toRoute('escala/createVoo', $idvoo) ?>" class="btn btn-success" style="float: right;" role="button">Criar Escala</a>
+
+                    <h3 class="text-dark mb-4">Escala do Voo: <?=$idvoo?></h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Informação das Escalas do voo: <?=$idvoo?></p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Id Escala</th>
+                                        <th>Id Avião</th>
+                                        <th>Aeroporto Origem</th>
+                                        <th>Aeroporto Destino</th>
+                                        <th>Data Origem</th>
+                                        <th>Data Destino</th>
+                                    </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                    <tr>
+                                        <?php $totalid = 0 ?>
+                                        <?php foreach ($escala as $escalas) { ?>
+                                    <tr>
+                                        <td><?=$escalas->id?></td>
+                                        <td><?=$escalas->id_aviao?></td>
+                                        <?php $totalid = $totalid +1 ?>
+                                        <?php foreach ($aeroporto as $aeroportos) { ?>
+                                        <?php if($aeroportos->id == $escalas->id_aeroporto_origem){ ?>
+
+                                                <td><?=$aeroportos->nome?></td>
+                                        <?php } ?>
+                                            <?php if($aeroportos->id == $escalas->id_aeroporto_destino){ ?>
+
+                                                <td><?=$aeroportos->nome?></td>
+                                            <?php } ?>
+                                        <?php } ?>
+                                        <td><?=$escalas->data_origem->format('Y-m-d H:i:s')?></td>
+                                        <td><?=$escalas->data_destino->format('Y-m-d H:i:s')?></td>
+                                        <!--<td><a  class="btn btn-danger" role="button">Por embarcar</a></td>-->
+
+                                        <?php if($role !="operadorcheckin"){ ?>
+
+                                        <td>
+                                            <a href="<?=Url::toRoute('escala/edit', $escalas->id)?>" class="btn btn-warning" role="button">Edit</a>
+                                            <a href="<?=Url::toRoute('escala/destroy', $escalas->id)?>" class="btn btn-danger" role="button">Delete</a>
+                                        </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php } ?>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Total de Escalas: <?= $totalid ?></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

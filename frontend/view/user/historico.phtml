@@ -1,0 +1,108 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+if(Session::has('user')){
+
+    $user = Session::get('user');
+}
+$passagem = Data::get('passagem');
+$cliente = Data::get('cliente');
+
+
+Layout::includeLayout('indexheader'); ?>
+
+
+
+
+        <div class="container">
+            <div class="about-us-content">
+                <div class="row">
+                    <div class="col-sm-0">
+                        <div class="single-about-us">
+
+                        </div><!--/.single-about-us-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+            </div><!--/.about-us-content-->
+        </div><!--/.container-->
+
+    </section><!--/.about-us-->
+    <!--about-us end -->
+
+    <!--travel-box start-->
+
+    <!-- testemonial Start -->
+    <section   class="testemonial">
+        <div class="container">
+
+            <div class="gallary-header text-center">
+                <h2>
+                    Historico de Passagens
+                </h2>
+                <p>
+                    Aqui pode verificar tanto as passagens que comprou como as escalas das mesmas:
+                </p>
+<br>
+            </div><!--/.gallery-header-->
+
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id Passagem</th>
+                        <th>Id Voo</th>
+                        <th>Nome Utilizador</th>
+                        <th>Tipo de Bilhete</th>
+                        <th>Preço do Bilhete</th>
+                        <th>checkin</th>
+
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <tr>
+
+                        <?php $totalid = 0  ?>
+                        <?php foreach ($passagem as $passagens) { ?>
+                    <tr>
+                        <td><?=$passagens->id?></td>
+                        <?php $totalid = $passagens->id ?>
+                        <td><?=$passagens->id_voos?></td>
+                        <?php  foreach ($cliente as $clientes) {
+                            if ($clientes->id == $passagens->id_utilizador){?>
+                                <td><?=$clientes->nome?></td>
+                            <?php }
+                        } ?>
+                        <td><?=$passagens->tipo_bilhete?></td>
+                        <td><?=$passagens->preco?> €</td>
+                        <?php if ($passagens->checkin == 0){?>
+                            <td style="color: #0C70B7;">Pendente</td>
+                        <?php }else{?>
+                            <td style="color: green">Autorizado</td>
+                        <?php }?>
+                        <td>
+                            <a href="<?=Url::toRoute('passagemvenda/show', $passagens->id)?>" class="btn btn-warning" role="button">detalhes</a>
+                            <a href="" class="btn btn-danger" role="button" download>Download PDF</a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+    </section><!--/.testimonial-->
+    <!-- testemonial End -->
+
+
+
+
+
+
+</body>
+<?php Layout::includeLayout('footer')?>

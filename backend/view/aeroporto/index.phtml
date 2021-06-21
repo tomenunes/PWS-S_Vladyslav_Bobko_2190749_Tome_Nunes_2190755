@@ -1,0 +1,70 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+(new OverallHelper)->CallLayout(); ?>
+<?php $aeroporto = Data::get('aeroporto') ?>
+
+    <!-- container -->
+
+
+                <div class="container-fluid">
+
+                    <a href="<?=Url::toRoute('aeroporto/create') ?>" class="btn btn-success" style="float: right;" role="button">Adicionar Aeroporto</a>
+
+                    <h3 class="text-dark mb-4">Aeroporto:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Informação dos Aeroportos</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Id Aeroporto</th>
+                                        <th>Nome</th>
+
+                                    </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                    <tr>
+
+                                        <?php $totalid = 0  ?>
+                                        <?php foreach ($aeroporto as $aeroportos) { ?>
+                                    <tr>
+                                        <td><?=$aeroportos->id?></td>
+
+                                        <?php $totalid = $totalid +1  ?>
+                                        <td><?=$aeroportos->nome?></td>
+                                        <td>
+                                            <a href="<?=Url::toRoute('aeroporto/edit', $aeroportos->id)?>" class="btn btn-warning" role="button">Edit</a>
+                                            <a href="<?=Url::toRoute('aeroporto/destroy', $aeroportos->id)?>" class="btn btn-danger" role="button">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Total de Aeroportos: <?= $totalid ?></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

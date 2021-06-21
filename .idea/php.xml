@@ -50,12 +50,9 @@
       <path value="$PROJECT_DIR$/vendor/illuminate/container" />
       <path value="$PROJECT_DIR$/vendor/illuminate/contracts" />
       <path value="$PROJECT_DIR$/vendor/illuminate/support" />
-      <path value="$PROJECT_DIR$/vendor/Symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/Symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/vendor/Symfony/translation" />
       <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/vendor/Psr/simple-cache" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/vendor/illuminate/database" />
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
@@ -75,6 +72,30 @@
       <path value="$PROJECT_DIR$/vendor/php-activerecord/test" />
       <path value="$PROJECT_DIR$/vendor/Tracy/assets" />
       <path value="$PROJECT_DIR$/vendor/Tracy/Bridges" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpword" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-escaper" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/google/apiclient" />
+      <path value="$PROJECT_DIR$/vendor/neitanod/forceutf8" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/jakoch/phantomjs-installer" />
+      <path value="$PROJECT_DIR$/vendor/patchwork/utf8" />
+      <path value="$PROJECT_DIR$/vendor/gears/di" />
+      <path value="$PROJECT_DIR$/vendor/gears/pdf" />
+      <path value="$PROJECT_DIR$/vendor/gears/string" />
+      <path value="$PROJECT_DIR$/vendor/ncjoes/office-converter" />
+      <path value="$PROJECT_DIR$/vendor/jakoch/phantomjs" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7" />

@@ -1,0 +1,81 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+$user = Data::get('cliente');
+
+(new OverallHelper)->CallLayout(); ?>
+    <!-- container -->
+
+
+                <div class="container-fluid">
+
+
+                    <h3 class="text-dark mb-4">Editar Utilizador:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Editar Passagem Vendas</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                           <form method="post" action="<?=Url::toRoute('user/updateusers', $user->id)?>">
+                               <div class="top-margin">
+
+                                   <label>Nome do Utilizador<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="text" name="nome" value="<?=$user->nome?>" class="form-control">
+                                   <br>
+                                   <label>Morada<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="text" name="morada" value="<?=$user->morada?>" class="form-control">
+                                   <br>
+                                   <label>Email<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="text" name="email" value="<?=$user->email?>" class="form-control">
+                                   <br>
+
+                                   <label>NIF<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="text" name="nif" value="<?=$user->nif?>" class="form-control">
+                                   <br>
+
+                                   <label>Telefone<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="text" name="telefone" value="<?=$user->telefone?>" class="form-control">
+                                   <br>
+                                   <label>Role<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select class="form-control " name="role">
+
+                                       <option value="Passageiro">Passageiro</option>
+                                       <option value="operadorcheckin">Operador Check-in</option>
+                                       <option value="gestorvoo">Gestor de Voos</option>
+                                       <option value="admin">admin</option>
+
+
+                                   </select>
+                                   <br>
+                               </div>
+                               <hr>
+                               <div class="row">
+
+                                   <div class="col-lg-4 text-left">
+                                       <button class="btn btn-info" type="submit">Editar Utilizador</button>
+                                   </div>
+                               </div>
+                           </form>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

@@ -14,18 +14,31 @@ class HomeController extends BaseController
 {
 
     public function index(){
+        if(Session::has('userbackend')){
 
-        return View::make('home.index');
+
+            $aviao = Aviao::count();
+            $cliente = User::all();
+            $voos = Voo::all();
+            $totalclientes = (new OverallHelper)->getCountPassageiros();
+
+
+            return View::make('home.index', ['aviao' => $aviao,'clientetotal' => $totalclientes,'cliente' =>$cliente,'voo' =>$voos] );
+        }else{
+            return Redirect::toRoute("home/login");
+        }
     }
 
-    public function start(){
 
-        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Quick Start']);
-        return View::make('home.start');
-    }
 
     public function login(){
-        Throw new Exception('Method not implemented. Do it yourself!');
+        if(Session::has('userbackend')){
+            Redirect::toRoute('home/index');
+        }else{
+
+
+            return View::make('home.login');
+    }
     }
 
 
@@ -35,10 +48,14 @@ class HomeController extends BaseController
 
         return View::make('home.worksheet');
     }
+    public function erro(){
+
+
+        return View::make('home.erro');
+    }
 
     public function setsession(){
-        $dataObject = MetaArmCoreModel::getComponents();
-        Session::set('object', $dataObject);
+
 
         Redirect::toRoute('home/worksheet');
     }

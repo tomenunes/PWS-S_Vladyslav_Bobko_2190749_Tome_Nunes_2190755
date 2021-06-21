@@ -1,0 +1,117 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+use PhpOffice\PhpWord\TemplateProcessor;
+
+if(Session::has('user')){
+
+    $user = Session::get('user');
+}
+
+$voo = Data::get('voo');
+
+Layout::includeLayout('header'); ?>
+<head>
+    <script>
+            function Preco(s1){
+
+                var s1 = document.getElementById(s1);
+                if(s1.value === "ida"){
+                    document.getElementById("preco").setAttribute('value','<?= $voo->preco ?>');
+                } else if(s1.value === "ida_volta"){
+                    document.getElementById("preco").setAttribute('value','<?= $voo->preco*2 ?>');
+                }
+                }
+            </script>
+</head>
+<body style="height: auto">
+<form method="post" action="<?= URL::toRoute('passagemvenda/purchase') ?>">
+    <div class="container" style="margin-left: 33%;margin-top: 5%;">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Comprar bilhete:
+                        </h3>
+                        <div class="checkbox pull-right">
+
+                                <br>
+                            <label>Tipo de Bilhete: </label>
+                          <select name="tipo_bilhete" id="tipo_bilhetes" onchange="Preco(this.id)">
+                              <option value="ida">ida</option>
+                              <option value="ida_volta">ida/Volta</option>
+                          </select>
+
+                        </div>
+                        <div class="checkbox pull-left">
+
+                            <br>
+                            <select hidden name="id_voo">
+                                <option   value="<?=$voo->id ?>">ID</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="panel-body">
+
+                            <div class="form-group">
+                                <label for="cardNumber">
+                                    CARD NUMBER</label>
+                                <script>
+                                    $(":input").inputmask();
+                                </script>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cardNumber"
+                                           required  max="9999999999999999" min="0"/>
+
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-7 col-md-7">
+                                    <div class="form-group">
+                                        <label for="expityMonth">
+                                            EXPIRY DATE</label>
+                                        <div class="col-xs-6 col-lg-6 pl-ziro">
+                                            <input type="text" class="form-control" id="expityMonth" placeholder="MM" required maxlength="2"/>
+                                        </div>
+                                        <div class="col-xs-6 col-lg-6 pl-ziro">
+                                            <input type="text" class="form-control" id="expityYear" placeholder="YY" required maxlength="2"/></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 col-md-5 pull-right">
+                                    <div class="form-group">
+                                        <label for="cvCode">
+                                            CV CODE</label>
+                                        <input type="password" class="form-control" id="cvCode" placeholder="CV" required maxlength="3"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="preco"name="preco" readonly value="<?= $voo->preco ?>" />
+
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                        </div>
+                </div>
+                </div>
+
+                <br/>
+
+                <input type="submit" class="btn btn-success btn-lg btn-block" value="Pay">
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+
+
+</body>

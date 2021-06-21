@@ -8,6 +8,7 @@ $assetBundles = [
         Asset::js ( 'headroom.min.js' ),
         Asset::js ( 'jQuery.headroom.min.js' ),
         Asset::js ( 'template.js' ),
+        Asset::js ( 'teste.js' ),
         Asset::js ( 'bootsnav.js' ),
         Asset::js ( 'bootstrap.min.js' ),
         Asset::js ( 'custom.js' ),

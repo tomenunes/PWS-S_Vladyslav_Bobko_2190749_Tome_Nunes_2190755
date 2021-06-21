@@ -1,0 +1,166 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+if(Session::has('user')){
+
+    $user = Session::get('user');
+}
+$passagem = Data::get('passagem');
+$cliente = Data::get('cliente');
+$escala = Data::get('escala');
+$aeroporto = Data::get('aeroporto');
+$aviao = Data::get('aviao');
+
+
+
+Layout::includeLayout('indexheader'); ?>
+
+
+
+
+        <div class="container">
+            <div class="about-us-content">
+                <div class="row">
+                    <div class="col-sm-0">
+                        <div class="single-about-us">
+
+                        </div><!--/.single-about-us-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+            </div><!--/.about-us-content-->
+        </div><!--/.container-->
+
+    </section><!--/.about-us-->
+    <!--about-us end -->
+
+    <!--travel-box start-->
+
+    <!-- testemonial Start -->
+    <section   class="testemonial">
+        <div class="container">
+
+            <div class="gallary-header text-center">
+                <h2>
+                    Detalhes da Passagem ID:<?= $passagem->id ?>
+                </h2>
+                <p>
+
+                </p>
+<br>
+            </div><!--/.gallery-header-->
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id Passagem</th>
+                        <th>Id Voo</th>
+                        <th>Nome Utilizador</th>
+                        <th>Tipo de Bilhete</th>
+                        <th>Preço do Bilhete</th>
+                        <th>checkin</th>
+
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <tr>
+
+                        <?php $totalid = 0  ?>
+                    <tr>
+                        <td><?=$passagem->id?></td>
+                        <?php $totalid = $passagem->id ?>
+                        <td><?=$passagem->id_voos?></td>
+                        <?php  foreach ($cliente as $clientes) {
+                            if ($clientes->id == $passagem->id_utilizador){?>
+                                <td><?=$clientes->nome?></td>
+                            <?php }
+                        } ?>
+                        <td><?=$passagem->tipo_bilhete?></td>
+                        <td><?=$passagem->preco?> €</td>
+                        <?php if ($passagem->checkin == 0){?>
+                            <td style="color: #0C70B7;">Pendente</td>
+                        <?php }else{?>
+                            <td style="color: green">Autorizado</td>
+                        <?php }?>
+                    </tr>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="gallary-header text-center">
+                <h2>
+                    Escalas da Passagem ID:<?= $passagem->id ?>
+                </h2>
+                <p>
+
+                </p>
+                <br>
+            </div><!--/.gallery-header-->
+
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id Escala</th>
+                        <th>Referencia do Avião</th>
+                        <th>Aeroporto Origem</th>
+                        <th>Aeroporto Destino</th>
+                        <th>Data Origem</th>
+                        <th>Data Destino</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <tr>
+                        <?php $totalid = 0 ?>
+                        <?php foreach ($escala as $escalas) { ?>
+                    <tr>
+                        <td><?=$escalas->id?></td>
+                        <?php  foreach ($aviao as $aviaos) {
+                            if ($aviaos->id == $passagem->id_voos){?>
+                                <td><?=$aviaos->referencia?></td>
+                            <?php }
+                        } ?>
+                        <?php $totalid = $totalid +1 ?>
+                        <?php foreach ($aeroporto as $aeroportos) { ?>
+                            <?php if($aeroportos->id == $escalas->id_aeroporto_origem){ ?>
+
+                                <td><?=$aeroportos->nome?></td>
+                            <?php } ?>
+                            <?php if($aeroportos->id == $escalas->id_aeroporto_destino){ ?>
+
+                                <td><?=$aeroportos->nome?></td>
+                            <?php } ?>
+                        <?php } ?>
+                        <td><?=$escalas->data_origem->format('Y-m-d H:i:s')?></td>
+                        <td><?=$escalas->data_destino->format('Y-m-d H:i:s')?></td>
+                        <!--<td><a  class="btn btn-danger" role="button">Por embarcar</a></td>-->
+
+
+
+                    </tr>
+                    <?php } ?>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+
+    </section><!--/.testimonial-->
+    <!-- testemonial End -->
+
+
+
+
+
+
+</body>
+<?php Layout::includeLayout('footer')?>

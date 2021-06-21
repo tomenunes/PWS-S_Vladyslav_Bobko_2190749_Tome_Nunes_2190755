@@ -39,7 +39,7 @@ require ( 'debug-env.php' );
 require ( 'Micro-Kernel.php' );
 
 // ORM System Bootstrap
-//require ( 'ORM-bootstrap.php' );
+require ( 'ORM-bootstrap.php' );
 
 // Template Engines bootstrap
 require ( 'TemplateEngine-Bootstrap.php' );

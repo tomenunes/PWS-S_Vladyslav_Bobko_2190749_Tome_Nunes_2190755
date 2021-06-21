@@ -1,0 +1,116 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+(new OverallHelper)->CallLayout(); ?>
+<?php $voo = Data::get('voo');  ?>
+<?php $aeroporto = Data::get('aeroporto');  ?>
+<?php $aviao = Data::get('aviao');  ?>
+
+    <!-- container -->
+
+
+                <div class="container-fluid">
+
+
+                    <h3 class="text-dark mb-4">Escalas:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Criar Escala</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                           <form method="post" action="<?=Url::toRoute('escala/createA')?>">
+                               <div class="top-margin">
+
+                                   <label>Id Voos<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select class="form-control " name="id_voos">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($voo as $voos) { ?>
+                                           <option><?=$voos->id?></option>
+                                       <?php          }?>
+
+                                   </select>
+                                   <br>
+                                   <label>Id Aviao<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select class="form-control " name="id_aviao">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aviao as $aviaos) { ?>
+                                           <option><?=$aviaos->id?></option>
+                                       <?php          }?>
+
+                                   </select>
+                                   <br>
+                                   <label>Aeroporto Origem<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select class="form-control " name="aeroporto_origem">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aeroporto as $aeroportos) { ?>
+                                           <option value="<?=$aeroportos->id?>"><?=$aeroportos->nome?></option>
+                                       <?php          }?>
+
+                                   </select>
+                                   <br>
+                                   <label>Aeroporto Destino<span class="text-danger">*</span></label>
+                                   <br>
+
+                                   <select class="form-control " name="aeroporto_destino">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aeroporto as $aeroportos) { ?>
+                                           <option value="<?=$aeroportos->id?>"><?=$aeroportos->nome?></option>
+                                       <?php          }?>
+
+                                   </select>
+                                   <br>
+                                   <label>Data Origem<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="datetime-local" name="data_origem" class="form-control" data-toggle="datepicker"  value="">
+                                   <br>
+                                   <label>Data Destino<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="datetime-local" name="data_destino" class="form-control" data-toggle="datepicker"  value="">
+
+                               </div>
+
+                               <hr>
+                               <div class="row">
+
+                                   <div class="col-lg-4 text-left">
+                                       <button class="btn btn-info" type="submit">Criar Escala</button>
+                                   </div>
+                               </div>
+                           </form>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

@@ -1,50 +1,85 @@
 <?php use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('header') ?>
-<?php $aviao = Data::get('aviao') ?>
+$role = Session::get('role');
+$loggeduser = Session::get('userbackend');
+(new OverallHelper)->CallLayout(); ?>
+<?php $user = Data::get('cliente'); ?>
 
-    <!-- container -->
-    <div class="container">
+          <div class="container-fluid">
+    <h3 class="text-dark mb-4">Utilizadores:</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Informação dos Utilizadores</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
 
-        <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Book Index</li>
-        </ol>
 
-        <h2 class="text-left top-space">Book Index</h2>
-        <h2 class="top-space"></h2>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-striped"><thead><th><h3>Id</h3></th><th><h3>Name</h3></th><th><h3>ISBN</h3></th><th><h3>User Actions</h3></th></thead>
-                <tbody>
-                <?php foreach ($aviao as $avia) { ?>
+            </div>
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
                     <tr>
-                    <td><?=$avia->id?></td>
-                    <td><?=$avia->referencia?></td>
-                    <td><?=$avia->lotacao?></td>
-                    <td><?=$avia->tipo_aviao?></td>
-                    <td>
-                        <a href="<?=Url::toRoute('book/show', $avia->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('book/edit', $avia->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('book/destroy', $avia->id)?>" class="btn btn-warning" role="button">Delete</a>
-                    </td>
+
+
+                        <th>Id Utilizador</th>
+                        <th>Nome Utilizador</th>
+                        <th>Morada</th>
+                        <th>Email</th>
+                        <th>NIF</th>
+                        <th>Telefone</th>
+                        <th>Role</th>
+
                     </tr>
-                <?php } ?>
+                    </thead>
 
-                </tbody>
 
-            </table>
+                    <tbody>
+                    <tr>
+
+                        <?php $totalid = 0  ?>
+                        <?php foreach ($user as $users) { ?>
+                    <tr>
+                        <td><?=$users->id?></td>
+                        <?php $totalid = $users->id ?>
+                        <td><?=$users->nome?></td>
+                        <td><?=$users->email?></td>
+                        <td><?=$users->morada?></td>
+                        <td><?=$users->nif?></td>
+                        <td><?=$users->telefone?></td>
+                        <td><?=$users->role?></td>
+
+                        <td>
+<?php if ($loggeduser->id == $users->id){ ?>
+                            <a href="<?=Url::toRoute('user/editusers', $users->id)?>" class="btn btn-warning" disabled="true" role="button">Edit</a>
+                            <a href="<?=Url::toRoute('user/destroy', $users->id)?>" class="btn btn-danger" disabled="true" role="button">Delete</a>
+
+                    <?php }else{ ?>
+                        <a href="<?=Url::toRoute('user/editusers', $users->id)?>" class="btn btn-warning" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('user/destroy', $users->id)?>" class="btn btn-danger" role="button">Delete</a>
+
+                    <?php } ?>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 align-self-center">
+                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Total de Utilizadores: <?= $totalid ?></p>
+                </div>
 
             </div>
-            <div class="col-sm-6">
-                <h3>Create a new Book</h3>
-                <p>
-                    <a href="<?=Url::toRoute('book/create')?>" class="btn btn-info" role="button">New</a>
-                </p>
-            </div>
-        </div> <!-- /row -->
-
-    </div>	<!-- /container -->
+        </div>
+    </div>
+</div>
+    </div>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
 <?php Layout::includeLayout('footer')?>

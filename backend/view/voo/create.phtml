@@ -1,0 +1,91 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+(new OverallHelper)->CallLayout();   ?>
+<?php $voo = Data::get('voo');  ?>
+<?php $aeroporto = Data::get('aeroporto');  ?>
+
+    <!-- container -->
+
+
+                <div class="container-fluid">
+
+
+                    <h3 class="text-dark mb-4">Voo:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Criar Voo</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                           <form method="post" action="<?=Url::toRoute('voo/createA')?>">
+                               <div class="top-margin">
+                                   <label>Preço do Voo<span class="text-danger">*</span></label>
+                                   <input required type="number" name="preco" value="" class="form-control">
+                                   <br>
+                                   <label>Aeroporto Inicial<span class="text-danger">*</span></label>
+                                   <select required class="form-control " name="aeroporto_inicial">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aeroporto as $aeroportos) { ?>
+                                           <option value="<?=$aeroportos->id?>"><?=$aeroportos->nome?></option>
+                                       <?php          }?>
+
+                                   </select>
+
+                                   <br>
+                                   <label>Aeroporto Final<span class="text-danger">*</span></label>
+                                   <select required class="form-control " name="aeroporto_final">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aeroporto as $aeroportos) { ?>
+                                           <option value="<?=$aeroportos->id?>"><?=$aeroportos->nome?></option>
+                                       <?php          }?>
+
+                                   </select>
+
+                                   <br>
+                                   <label>Data Inicial<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input required type="datetime-local" name="data_inicial" class="form-control" data-toggle="datepicker"  >
+                                   <br>
+                                   <label>Data Final<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input required type="datetime-local" name="data_final" class="form-control" data-toggle="datepicker"  >
+                                   <br>
+                                   <label>Escalas Total do Voo<span class="text-danger">*</span></label>
+                                   <input type="number" name="escalas_total" value="0" class="form-control">
+                                   <br>
+
+                               </div>
+                               <hr>
+                               <div class="row">
+
+                                   <div class="col-lg-4 text-left">
+                                       <button class="btn btn-info" type="submit">Criar Voo</button>
+                                   </div>
+                               </div>
+                           </form>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

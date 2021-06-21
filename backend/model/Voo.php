@@ -3,13 +3,15 @@
 
 class Voo extends \ActiveRecord\Model
 {
+
     static $validates_presence_of = array(
-        array('id_aviao'),
-        array('aeroporto_destino'),
-        array('aeroporto_origem'),
-        array('data_origem'),
-        array('data_destino'),
-        array('distancia'),
-        array('preco')
+        array('id'),
+        array('preco'),
+        array('id_aeroporto_inicial'),
+        array('id_aeroporto_final'),
+        array('data_inicial'),
+        array('data_final'),
+        array('estado')
+
     );
 }

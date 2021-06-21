@@ -1,5 +1,6 @@
 <?php
 use ArmoredCore\Controllers\BaseController;
+use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
@@ -12,21 +13,60 @@ use ArmoredCore\WebObjects\View;
  */
 class HomeController extends BaseController
 {
+    public function login(){
+        $voo  = Voo::all();
+        return View::make('home.login' , ['voo' => $voo]);
+    }
+    public function signup(){
+        return View::make('home.signup');
+    }
+    public function book(){
+        return View::make('home.book');
+    }
 
     public function index(){
 
-        return View::make('home.index');
+        $escala = Escala::all();
+        $aeroporto = Aeroporto::all();
+
+        return View::make('home.index', ['escalas' => $escala,'aeroporto' => $aeroporto]);
     }
 
-    public function start(){
+    public function search(){
 
-        //View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Quick Start']);
-        return View::make('home.start');
+      if(Post::get('data_origem') == "" && Post::get('data_destino') == ""){
+          $search = Voo::all(
+
+              array('conditions' => array('id_aeroporto_inicial = ?', Post::get('aeroporto_origem')))
+              ,array('conditions' => array('id_aeroporto_final = ?', Post::get('aeroporto_destino'))));
+
+      }elseif (Post::get('aeroporto_origem') == "" && Post::get('aeroporto_destino') == "") {
+          $search = Voo::all(array('conditions' => array('data_inicial = ?', Post::get('data_origem')))
+              , array('conditions' => array('data_final = ?', Post::get('data_destino')))
+              , array('conditions' => array('id_aeroporto_final = ?', Post::get('aeroporto_destino'))));
+      }elseif (Post::get('data_origem') == "" && Post::get('data_destino') == "" && Post::get('aeroporto_origem') == "" && Post::get('aeroporto_destino') == ""){
+          $search = Voo::all();
+      }else{
+
+          $search = Voo::all(array('conditions' => array('data_inicial = ?', Post::get('data_origem')))
+              ,array('conditions' => array('data_final = ?', Post::get('data_destino')))
+              ,array('conditions' => array('id_aeroporto_inicial = ?', Post::get('aeroporto_origem')))
+              ,array('conditions' => array('id_aeroporto_final = ?', Post::get('aeroporto_destino'))));
+      }
+
+        $aeroporto = Aeroporto::all();
+
+
+        return View::make('home.search', ['search' => $search,'aeroporto' => $aeroporto]);
+    }
+    public function searchl(){
+
+        $search = Voo::all();
+        $aeroporto = Aeroporto::all();
+
+        return View::make('home.search', ['search' => $search,'aeroporto' => $aeroporto]);
     }
 
-    public function login(){
-        Throw new Exception('Method not implemented. Do it yourself!');
-    }
 
 
     public function worksheet(){
@@ -36,22 +76,14 @@ class HomeController extends BaseController
         return View::make('home.worksheet');
     }
 
-    public function setsession(){
-        $dataObject = MetaArmCoreModel::getComponents();
-        Session::set('object', $dataObject);
 
-        Redirect::toRoute('home/worksheet');
-    }
 
-    public function showsession(){
-        $res = Session::get('object');
-        var_dump($res);
-    }
+
 
     public function destroysession(){
 
         Session::destroy();
-        Redirect::toRoute('home/worksheet');
+        Redirect::toRoute('home/index');
     }
 
 

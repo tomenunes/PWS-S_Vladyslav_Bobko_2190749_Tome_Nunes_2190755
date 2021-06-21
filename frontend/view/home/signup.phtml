@@ -1,0 +1,74 @@
+<?php use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\URL;
+$user = Data::get('user');
+Layout::includeLayout('indexheader') ?>
+
+	<!-- container -->
+	<div class="container">
+
+		<ol class="breadcrumb">
+			<li><a href="index.html">Home</a></li>
+			<li class="active">User access</li>
+		</ol>
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Sign Up</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Cria a tua conta</h3>
+                            <br>
+							<p class="text-center text-muted">Se já tiveres conta faz <a href="login">Login</a>. </p>
+							<hr>
+							
+							<form id="signup" action="<?= Url::toRoute('user/signup') ?>" method="post">
+								<div class="top-margin">
+									<label>Nome<span class="text-danger">*</span></label>
+									<input type="text" name="nome" id="nome" class="form-control" >
+								</div>
+                                <div class="top-margin">
+									<label>Username<span class="text-danger">*</span></label>
+									<input type="text"name="username" id="username" class="form-control" >
+								</div>
+                                <div class="top-margin">
+									<label>Email<span class="text-danger">*</span></label>
+									<input type="text" name="email" id="email" class="form-control" >
+								</div>
+                                <div class="top-margin">
+									<label>NIF<span class="text-danger">*</span></label>
+									<input type="text" name="nif" id="nif" class="form-control" >
+								</div>
+								<div class="top-margin">
+									<label>Password <span class="text-danger">*</span></label>
+									<input type="password" name="password" id="password" class="form-control">
+								</div>
+
+								<hr>
+
+								<div class="row" style="float:right;">
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Sign up</button>
+									</div>
+								</div>
+							</form>
+
+                        </div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

@@ -1,0 +1,77 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+if(Session::has('user')){
+
+    $user = Session::get('user');
+}
+
+$search = Data::get('search');
+$aeroporto = Data::get('aeroporto');
+
+Layout::includeLayout('indexheader'); ?>
+
+
+<div style="padding: 150px">
+    <header class="page-header">
+        <h1 class="page-title">Resultados:</h1>
+    </header>
+    <div class="packages-content">
+        <div class="row">
+            <?php if($search == null){ ?>
+            <h1 align="center">No Results</h1>
+            <?php          }?>
+
+            <?php foreach ($search as $searchs) { ?>
+
+
+<form action="<?= URL::toRoute('purchase/index', $searchs->id) ?>" method="get">
+            <div class="col-md-4 col-sm-6">
+                <div class="single-package-item">
+                    <img src="<?= Asset::image('aviao1.jpg')?>" alt="package-place">
+                    <div class="single-package-item-txt">
+    <?php foreach ($aeroporto as $aeroportos) { ?>
+    <?php if($aeroportos->id == $searchs->id_aeroporto_inicial){?>
+                        <h3><?=$aeroportos->nome?>
+        <?php          }?>
+        <?php          }?>
+        <?php foreach ($aeroporto as $aeroportos) { ?>
+                        <?php if($aeroportos->id == $searchs->id_aeroporto_final){?>
+                         - <?=$aeroportos->nome?> <span class="pull-right"></span></h3>
+                        <?php          }?>
+                        <?php          }?>
+
+                        <div class="packages-para"><p>
+                        <span>data-origem: <?=$searchs->data_inicial->format('Y-m-d H:i:s')?></span></p>
+                            <p>
+                        <span>data-destino: <?=$searchs->data_final->format('Y-m-d H:i:s')?></span></p>
+
+                        </div>
+
+                        <div class="about-btn">
+                               <?php if (Session::has('user')){ ?>
+                            <input value="Comprar Bilhete" type="submit" class="about-view packages-btn">
+                            <?php } ?>
+
+                        </div><!--/.about-btn-->
+                    </div><!--/.single-package-item-txt-->
+                </div><!--/.single-package-item-->
+
+            </div><!--/.col--></form>
+            <?php } ?>
+
+
+        </div><!--/.row-->
+    </div><!--/.packages-content-->
+
+    </div>
+
+
+
+
+</body>
+<?php Layout::includeLayout('footer')?>

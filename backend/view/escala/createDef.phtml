@@ -1,0 +1,122 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
+
+(new OverallHelper)->CallLayout(); ?>
+<?php $voo = Data::get('voo');  ?>
+<?php $aeroporto = Data::get('aeroporto');  ?>
+<?php $aviao = Data::get('aviao');  ?>
+<?php $igual = Data::get('igual');  ?>
+<?php $escala = Data::get('escala');  ?>
+
+    <!-- container -->
+
+
+                <div class="container-fluid">
+
+
+                    <h3 class="text-dark mb-4">Escalas:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Criar Escala</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                            </div>
+                           <form method="post" action="<?=Url::toRoute('escala/createA')?>">
+                               <div class="top-margin">
+
+                                   <label>Id Voos<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select readonly="true" class="form-control " name="id_voos">
+
+                                       <option value="<?=$voo->id?>"><?=$voo->id?></option>
+
+
+
+                                   </select>
+                                   <br>
+                                   <label>Id Aviao<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select class="form-control " name="id_aviao">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aviao as $aviaos) { ?>
+                                           <option><?=$aviaos->id?></option>
+                                       <?php          }?>
+
+                                   </select>
+                                   <br>
+
+                                   <label>Aeroporto Origem<span class="text-danger">*</span></label>
+                                   <br>
+                                   <select readonly="true" class="form-control " name="aeroporto_origem">
+
+                                       <?php foreach ($aeroporto as $aeroportos) { ?>
+                                               <?php if($escala->id_aeroporto_destino == $aeroportos->id){?>
+                                           <option value="<?= $escala->id_aeroporto_destino ?>"><?=$aeroportos->nome?></option>
+                                       <?php          }?>
+                                       <?php          }?>
+
+
+
+
+
+                                   </select>
+                                   <br>
+                                   <label>Aeroporto Destino<span class="text-danger">*</span></label>
+                                   <br>
+
+                                   <select class="form-control " name="aeroporto_destino">
+
+                                       <option value="">enter your location</option>
+
+
+
+                                       <?php foreach ($aeroporto as $aeroportos) { ?>
+                                           <option value="<?=$aeroportos->id?>"><?=$aeroportos->nome?></option>
+                                       <?php          }?>
+
+                                   </select>
+                                   <br>
+
+                                   <label>Data Origem<span class="text-danger">*</span></label>
+                                   <br>
+                                   <input type="datetime-local" name="data_origem" class="form-control" data-toggle="datepicker" min="<?=strval($escala->data_destino->format('Y-m-d'))?>T00:00"  value="">
+                                   <br>
+                                   <label>Data Destino<span class="text-danger">*</span></label>
+                                   <br>
+                                   <?php if ($igual){ ?>
+
+                                   <input type="datetime-local" name="data_destino" class="form-control" data-toggle="datepicker" readonly value="<?=strval($voo->data_final->format('Y-m-d'))?>T00:00">
+                                <?php }else{?>
+    <input type="datetime-local" name="data_destino" class="form-control" data-toggle="datepicker" max="<?=strval($voo->data_final->format('Y-m-d'))?>T00:00"  value="">
+                                <?php }?>
+                               </div>
+
+                               <hr>
+                               <div class="row">
+
+                                   <div class="col-lg-4 text-left">
+                                       <button class="btn btn-info" type="submit">Criar Escala</button>
+                                   </div>
+                               </div>
+                           </form>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<?php Layout::includeLayout('footer')?>

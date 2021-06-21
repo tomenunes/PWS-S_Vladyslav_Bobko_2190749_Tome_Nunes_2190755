@@ -1,50 +1,75 @@
 <?php use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
-$value = '23231321';
-Layout::includeLayout('header') ?>
+
+(new OverallHelper)->CallLayout(); ?>
 <?php $aviao = Data::get('aviao') ?>
 
     <!-- container -->
-    <div class="container">
 
-        <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Book Index</li>
-        </ol>
 
-        <h2 class="text-left top-space">Book Index</h2>
-        <h2 class="top-space"></h2>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-striped"><thead><th><h3>Id</h3></th><th><h3>Name</h3></th><th><h3>ISBN</h3></th><th><h3>User Actions</h3></th></thead>
-                <tbody>
-                <?php foreach ($aviao as $avia) { ?>
-                    <tr>
-                    <td><?=$avia->id?></td>
-                    <td><?=$avia->referencia?></td>
-                    <td><?=$avia->lotacao?></td>
-                    <td><?=$avia->tipo_aviao?></td>
-                    <td>
-                        <a href="<?=Url::toRoute('book/show', $avia->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('book/edit', $avia->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('book/destroy', $avia->id)?>" class="btn btn-warning" role="button">Delete</a>
-                    </td>
-                    </tr>
-                <?php } ?>
+                <div class="container-fluid">
 
-                </tbody>
+                    <a href="<?=Url::toRoute('aviao/create') ?>" class="btn btn-success" style="float: right;" role="button">Criar Avião</a>
 
-            </table>
+                    <h3 class="text-dark mb-4">Aviões:</h3>
+                       <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Informação dos Aviões</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
 
+
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Id Avião</th>
+                                        <th>Referencia</th>
+                                        <th>Lotação</th>
+                                        <th>Tipo Avião</th>
+                                    </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                    <tr>
+                                        <?php $totalid = 0 ?>
+                                        <?php foreach ($aviao as $avia) { ?>
+                                    <tr>
+                                        <td><?=$avia->id?></td>
+
+
+                                        <?php $totalid = $totalid +1 ?>
+                                        <td><?=$avia->referencia?></td>
+                                        <td><?=$avia->lotacao?></td>
+
+
+                                        <td><?=$avia->tipo_aviao?></td>
+                                        <td>
+                                            <a href="<?=Url::toRoute('aviao/edit', $avia->id)?>" class="btn btn-warning" role="button">Edit</a>
+                                            <a href="<?=Url::toRoute('aviao/destroy', $avia->id)?>" class="btn btn-danger" role="button">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Total de Aviões: <?= $totalid ?></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6">
-                <h3>Create a new Book</h3>
-                <p>
-                    <a href="<?=Url::toRoute('aviao/search', $value)?>" class="btn btn-info" role="button">New</a>
-                </p>
-            </div>
-        </div> <!-- /row -->
-
-    </div>	<!-- /container -->
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
 <?php Layout::includeLayout('footer')?>
